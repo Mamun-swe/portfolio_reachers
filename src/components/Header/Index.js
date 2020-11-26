@@ -11,14 +11,13 @@ const Index = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col-12 text-center text-md-left">
-                                <h4>Hello! I am</h4>
                                 <h1>bikash kumar paul</h1>
                                 <ul>
-                                    <li><h3>Researcher</h3></li>
+                                    <li><h4>Researcher</h4></li>
                                     <li className="d-none d-lg-block px-2 pt-2"><Icon icon={ic_fiber_manual_record} size={13} /></li>
-                                    <li><h3>Software Engineer</h3></li>
+                                    <li><h4>Software Engineer</h4></li>
                                     <li className="d-none d-lg-block px-2 pt-2"><Icon icon={ic_fiber_manual_record} size={13} /></li>
-                                    <li><h3>Teacher</h3></li>
+                                    <li><h4>Teacher</h4></li>
                                 </ul>
                             </div>
                         </div>

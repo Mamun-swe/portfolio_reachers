@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/client/navbar/style.scss'
 import { Icon } from 'react-icons-kit'
-import { Link, NavLink } from 'react-router-dom'
-import { ic_menu, ic_close } from 'react-icons-kit/md'
-
-import Logo from '../../assets/static/Logo.png'
+import { NavLink } from 'react-router-dom'
+import { ic_menu } from 'react-icons-kit/md'
 
 const Index = () => {
     const [show, setShow] = useState(false)
@@ -27,17 +25,11 @@ const Index = () => {
 
     return (
         <div className="custom-navbar">
-            <div className={scrolled ? "main-navbar shadow" : "main-navbar"} >
+            <div className={scrolled ? "main-navbar shadow scrolled" : "main-navbar"} >
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
                             <div className="d-flex">
-                                {/* Logo */}
-                                <div className="logo">
-                                    <Link to="/">
-                                        <img src={Logo} className="img-fluid" alt="..." />
-                                    </Link>
-                                </div>
 
                                 {/* Toggle Bars */}
                                 <div className="ml-auto d-lg-none">
@@ -46,6 +38,7 @@ const Index = () => {
                                         size={25}
                                         className="bars"
                                         onClick={() => setShow(true)}
+                                        style={{ color: '#fff' }}
                                     />
                                 </div>
 
