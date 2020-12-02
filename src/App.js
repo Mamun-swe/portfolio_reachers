@@ -8,7 +8,7 @@ import {
 
 import ScrollToTop from './components/ScrollToTop/Index'
 
-import HomeIndex from './pages/Home/Index'
+import ClientIndex from './pages/client/Index'
 
 // import LoginIndex from './Pages/Auth/Login'
 // import RegisterIndex from './Pages/Auth/Register'
@@ -22,7 +22,7 @@ function App() {
       <Router>
         <ScrollToTop>
           <Switch>
-            <Route exact path="/" component={HomeIndex} />
+            <Route exact path="/" component={ClientIndex} />
             {/* <Route exact path="/about-us" component={AboutIndex} />
             <Route exact path="/contact-us" component={ContactIndex} />
 
