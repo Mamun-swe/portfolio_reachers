@@ -3,9 +3,11 @@ import '../../styles/client/component/navbar/style.scss'
 import { Icon } from 'react-icons-kit'
 import { NavLink } from 'react-router-dom'
 import { ic_menu } from 'react-icons-kit/md'
+import { Dropdown } from 'react-bootstrap'
 
 const Index = () => {
     const [show, setShow] = useState(false)
+    const [isDrop, setDrop] = useState(false)
     const [scrolled, setScrolled] = useState(false)
 
     const handleScroll = () => {
@@ -53,7 +55,24 @@ const Index = () => {
                                         <ul>
                                             <li><NavLink activeClassName="is-Active" exact to="/">home</NavLink></li>
                                             <li><NavLink activeClassName="is-Active" exact to="/about">about</NavLink></li>
-                                            <li><NavLink activeClassName="is-Active" exact to="/publication/2020">publications</NavLink></li>
+                                            {/* <li><NavLink activeClassName="is-Active" exact to="/publication/2020">publications</NavLink></li> */}
+                                            <li>
+                                                <Dropdown>
+                                                    <Dropdown.Toggle
+                                                        variant="none"
+                                                        className="shadow-none"
+                                                        onToggle={() => setDrop(!isDrop)}
+                                                    >publications</Dropdown.Toggle>
+
+                                                    <Dropdown.Menu
+                                                        className="rounded-0 border-0 shadow"
+                                                        show={isDrop}>
+                                                        <Dropdown.Item href="">Action</Dropdown.Item>
+                                                        <Dropdown.Item href="">Another action</Dropdown.Item>
+                                                        <Dropdown.Item href="">Something else</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </li>
                                             <li><NavLink activeClassName="is-Active" exact to="/contact-us">contact</NavLink></li>
                                             <li><NavLink activeClassName="is-Active" exact to="/login">login</NavLink></li>
                                         </ul>

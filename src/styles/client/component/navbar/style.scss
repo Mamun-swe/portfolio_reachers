@@ -88,7 +88,7 @@
                             margin-left: 15px;
                             display: inline-block;
 
-                            a {
+                            a, .btn {
                                 color: #fff;
                                 font-size: 14px;
                                 font-weight: 500;
@@ -98,6 +98,10 @@
                                 text-transform: uppercase;
                                 font-family: 'Montserrat', sans-serif;
                             }
+                        }
+
+                        .custom-dropdown {
+                            position: relative;
                         }
                     }
                 }
@@ -123,6 +127,6 @@
 
     .scrolled {
         background: #0b1448;
-        background: #0b1448;
+        // background: #fff;
     }
 }
