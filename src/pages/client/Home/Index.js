@@ -3,9 +3,15 @@ import '../../../styles/client/home/style.scss'
 import { ic_fiber_manual_record } from 'react-icons-kit/md'
 import Icon from 'react-icons-kit'
 
+
+import NavBar from '../../../components/ClientNav/Index'
+import Footer from '../../../components/Footer/Index'
+
 const Index = () => {
     return (
         <div className="home">
+            <NavBar />
+
             <div className="flex-center flex-column">
                 <div className="head-content">
                     <div className="container">
@@ -43,6 +49,8 @@ const Index = () => {
                 </div>
             </div>
 
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

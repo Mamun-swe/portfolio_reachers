@@ -8,7 +8,9 @@ import {
 
 import ScrollToTop from './components/ScrollToTop/Index'
 
-import ClientIndex from './pages/client/Index'
+import ClientIndex from './pages/client/Home/Index'
+import AboutIndex from './pages/client/About/Index'
+import PublicationIndex from './pages/client/Publication/Index'
 
 // import LoginIndex from './Pages/Auth/Login'
 // import RegisterIndex from './Pages/Auth/Register'
@@ -23,8 +25,11 @@ function App() {
         <ScrollToTop>
           <Switch>
             <Route exact path="/" component={ClientIndex} />
-            {/* <Route exact path="/about-us" component={AboutIndex} />
-            <Route exact path="/contact-us" component={ContactIndex} />
+            <Route exact path="/about" component={AboutIndex} />
+            <Route exact path="/publication/:year" component={PublicationIndex} />
+
+
+            {/* <Route exact path="/contact-us" component={ContactIndex} />
 
             <Route exact path="/login" component={LoginIndex} />
             <Route exact path="/register" component={RegisterIndex} />

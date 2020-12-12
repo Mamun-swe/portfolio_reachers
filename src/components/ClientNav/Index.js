@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../../styles/client/navbar/style.scss'
+import '../../styles/client/component/navbar/style.scss'
 import { Icon } from 'react-icons-kit'
 import { NavLink } from 'react-router-dom'
 import { ic_menu } from 'react-icons-kit/md'
@@ -52,7 +52,8 @@ const Index = () => {
                                     < div className={show ? "my-menu open-sidemenu" : "my-menu"} >
                                         <ul>
                                             <li><NavLink activeClassName="is-Active" exact to="/">home</NavLink></li>
-                                            <li><NavLink activeClassName="is-Active" exact to="/about-us">about</NavLink></li>
+                                            <li><NavLink activeClassName="is-Active" exact to="/about">about</NavLink></li>
+                                            <li><NavLink activeClassName="is-Active" exact to="/publication/2020">publications</NavLink></li>
                                             <li><NavLink activeClassName="is-Active" exact to="/contact-us">contact</NavLink></li>
                                             <li><NavLink activeClassName="is-Active" exact to="/login">login</NavLink></li>
                                         </ul>
