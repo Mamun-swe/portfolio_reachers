@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/client/component/navbar/style.scss'
 import { Icon } from 'react-icons-kit'
-import { NavLink } from 'react-router-dom'
-import { ic_menu } from 'react-icons-kit/md'
+import { Link, NavLink } from 'react-router-dom'
+import { ic_menu, ic_keyboard_arrow_right } from 'react-icons-kit/md'
 import { Dropdown } from 'react-bootstrap'
 
 const Index = () => {
@@ -49,35 +49,38 @@ const Index = () => {
                                     "ml-auto page-links-menu-bar show-backdrop" :
                                     "ml-auto page-links-menu-bar"}
                                     onClick={() => setShow(false)}
-                                >
-                                    {/* Menu */}
-                                    < div className={show ? "my-menu open-sidemenu" : "my-menu"} >
-                                        <ul>
-                                            <li><NavLink activeClassName="is-Active" exact to="/">home</NavLink></li>
-                                            <li><NavLink activeClassName="is-Active" exact to="/about">about</NavLink></li>
-                                            {/* <li><NavLink activeClassName="is-Active" exact to="/publication/2020">publications</NavLink></li> */}
-                                            <li>
-                                                <Dropdown>
-                                                    <Dropdown.Toggle
-                                                        variant="none"
-                                                        className="shadow-none"
-                                                        onToggle={() => setDrop(!isDrop)}
-                                                    >publications</Dropdown.Toggle>
+                                ></div>
 
-                                                    <Dropdown.Menu
-                                                        className="rounded-0 border-0 shadow"
-                                                        show={isDrop}>
-                                                        <Dropdown.Item href="">Action</Dropdown.Item>
-                                                        <Dropdown.Item href="">Another action</Dropdown.Item>
-                                                        <Dropdown.Item href="">Something else</Dropdown.Item>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </li>
-                                            <li><NavLink activeClassName="is-Active" exact to="/contact-us">contact</NavLink></li>
-                                            <li><NavLink activeClassName="is-Active" exact to="/login">login</NavLink></li>
-                                        </ul>
-                                    </div>
+
+                                {/* Menu */}
+                                <div className={show ? "my-menu open-sidemenu" : "my-menu"} >
+                                    <ul>
+                                        <li><NavLink activeClassName="is-Active" exact to="/">home</NavLink></li>
+                                        <li><NavLink activeClassName="is-Active" exact to="/about">about</NavLink></li>
+                                        <li>
+                                            <Dropdown className="custom-dropdown">
+                                                <Dropdown.Toggle
+                                                    variant="none"
+                                                    className="shadow-none"
+                                                    onToggle={() => setDrop(!isDrop)}
+                                                >Publications</Dropdown.Toggle>
+
+                                                <Dropdown.Menu
+                                                    className="custom-dropdown-menu rounded-0 border-0 shadow"
+                                                    show={isDrop}>
+                                                    <Dropdown.Item as={Link} to={`/publication/${2018}`}>2018<Icon icon={ic_keyboard_arrow_right} size={20} className="float-right" /></Dropdown.Item>
+                                                    <Dropdown.Item as={Link} to={`/publication/${2019}`}>2019<Icon icon={ic_keyboard_arrow_right} size={20} className="float-right" /></Dropdown.Item>
+                                                    <Dropdown.Item as={Link} to={`/publication/${2020}`}>2020<Icon icon={ic_keyboard_arrow_right} size={20} className="float-right" /></Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </li>
+                                        <li><NavLink activeClassName="is-Active" exact to="/contact">contact</NavLink></li>
+                                        <li><NavLink activeClassName="is-Active" exact to="/login">login</NavLink></li>
+                                    </ul>
                                 </div>
+
+
+
                             </div>
                         </div>
                     </div>

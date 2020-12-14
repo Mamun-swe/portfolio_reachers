@@ -12,6 +12,7 @@ import Footer from '../../../components/Footer/Index'
 
 const Index = () => {
     const { year } = useParams()
+    const [isOpen, setOpen] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [publications, setPublications] = useState([])
 
@@ -54,11 +55,26 @@ const Index = () => {
                             <div className="col-12">
 
                                 {publications && publications.map((publication, i) =>
-                                    <div className="d-flex item" key={i}>
-                                        <div><Icon icon={ic_chevron_right} size={25} /></div>
-                                        <div className="ml-2">
-                                            <p className="mb-0">{publication.name}</p>
+                                    <div className="item" key={i}>
+
+                                        {/* Item header */}
+                                        <div
+                                            className="d-flex item-header"
+                                            onClick={() => setOpen(publication.id)}
+                                        >
+                                            <div><Icon icon={ic_chevron_right} size={25} /></div>
+                                            <div className="ml-2">
+                                                <p className="mb-0">{publication.name}</p>
+                                            </div>
                                         </div>
+
+                                        {/* Item body */}
+                                        {isOpen === publication.id ?
+                                            <div className="item-body">
+                                                <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>
+                                            </div>
+                                            : null}
+
                                     </div>
                                 )}
                             </div>
