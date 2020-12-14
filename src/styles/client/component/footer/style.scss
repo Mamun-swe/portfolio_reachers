@@ -2,7 +2,7 @@
 
 .footer {
     width: 100%;
-    height: 900px;
+    height: 650px;
     background: url("../../../../assets/static/footer_bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -67,6 +67,6 @@
     }
 
     @media (min-width: 992px) {
-        height: 450px;
+        height: 380px;
     }
 }

@@ -1,0 +1,49 @@
+@import "../../../App.scss";
+
+// Contact Form
+.contact-form {
+    .card {
+        overflow: hidden;
+
+        .card-header {
+            h4 {
+                color: #000;
+                font-weight: 900;
+                margin-bottom: 5px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            p {
+                font-size: 15px;
+                line-height: 1.8rem;
+                font-family: 'Roboto', sans-serif;
+            }
+        }
+
+        .card-body {
+            form {
+                .form-control {
+                    font-size: 14px;
+                    min-height: 45px;
+                    padding-left: 15px;
+                    border: 1px solid #dfdfdf;
+                    font-family: 'Roboto', sans-serif;
+                }
+
+                .danger-border {
+                    border: 1px solid brown;
+                }
+
+                .btn {
+                    height: 45px;
+                    font-size: 15px;
+                    font-weight: 700;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    font-family: 'Roboto', sans-serif;
+                    background: $secondary-color;
+                }
+            }
+        }
+    }
+}
