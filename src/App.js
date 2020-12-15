@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import ScrollToTop from './components/ScrollToTop/Index'
+import PrivateRoute from './components/PrivateRoute/Index'
 
 import ClientIndex from './pages/client/Home/Index'
 import AboutIndex from './pages/client/About/Index'
@@ -15,6 +16,8 @@ import ContactIndex from './pages/client/Contact/Index'
 
 import LoginIndex from './pages/auth/Login'
 import ResetIndex from './pages/auth/Reset'
+
+import AdminMaster from './pages/admin/Master'
 
 // import DoctorAccountMaster from './Pages/Account/Doctor/Master'
 
@@ -31,6 +34,10 @@ function App() {
 
             <Route exact path="/login" component={LoginIndex} />
             <Route exact path="/reset" component={ResetIndex} />
+
+            <PrivateRoute path="/admin" role="admin">
+              <AdminMaster />
+            </PrivateRoute>
 
             {/* 
               <Route path="/doctor" component={DoctorAccountMaster} />

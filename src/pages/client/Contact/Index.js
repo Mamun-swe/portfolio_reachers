@@ -7,7 +7,6 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Icon } from 'react-icons-kit'
-import { ic_phone } from 'react-icons-kit/md'
 import { facebookF, twitter, linkedin, skype } from 'react-icons-kit/fa'
 
 import Navbar from '../../../components/ClientNav/Index'
