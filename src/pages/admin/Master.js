@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import '../../styles/admin/style.scss'
 import { Route, Switch } from 'react-router-dom'
 import Icon from 'react-icons-kit'
@@ -15,6 +16,22 @@ const Master = () => {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState({ name: "Bikash" })
 
+=======
+import '../../styles/admin/master.scss'
+import { Route, Switch } from 'react-router-dom'
+import Icon from 'react-icons-kit'
+import { ic_dehaze } from 'react-icons-kit/md'
+import axios from 'axios'
+import api from '../../utils/api'
+
+import SideMenu from '../../components/admin/sidemenu/Index'
+import DashboardIndex from './Dashboard/Index'
+
+
+const Master = () => {
+    const [show, setShow] = useState(false)
+    const [user, setUser] = useState({ name: 'admin' })
+>>>>>>> refs/remotes/origin/master
 
     useEffect(() => {
         const header = {
@@ -37,6 +54,10 @@ const Master = () => {
         // fetchMe()
     }, [])
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
     return (
         <div className="master">
             {/* Mobile Navbar */}
@@ -71,14 +92,21 @@ const Master = () => {
                 <div className="main flex-fill">
                     <Switch>
                         <Route exact path="/admin/" component={DashboardIndex} />
+<<<<<<< HEAD
                         <Route exact path="/admin/basic-info" component={BasicInfoIndex} />
                         {/* <Route exact path="/admin/requests" component={RequestIndex} /> */}
+=======
+>>>>>>> refs/remotes/origin/master
                     </Switch>
                 </div>
             </div>
 
         </div>
     );
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> refs/remotes/origin/master
 
 export default Master;

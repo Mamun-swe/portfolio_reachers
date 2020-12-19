@@ -18,7 +18,7 @@ const Index = () => {
 
                         {/* Contact */}
                         <div className="col-12 col-lg-6 pl-lg-5 mb-4 mb-lg-0">
-                            <h2 className="mb-4">Contact</h2>
+                            <h2 className="mb-4">Connect</h2>
                             <div className="d-flex mb-3">
                                 <div><Icon icon={ic_language} size={25} style={{ color: '#fff' }} /></div>
                                 <div className="ml-2">

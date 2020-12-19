@@ -33,7 +33,8 @@ function App() {
             <Route exact path="/login" component={LoginIndex} />
             <Route exact path="/reset" component={ResetIndex} />
 
-            <PrivateRoute path="/admin">
+
+            <PrivateRoute path="/admin" role="admin">
               <AdminMaster />
             </PrivateRoute>
 
