@@ -4,6 +4,11 @@ $primary: #0b1448;
 $secondary: #14b3fd;
 $dark: #000;
 
+.card {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
 /* Flex Box */
 
 .flex-center {

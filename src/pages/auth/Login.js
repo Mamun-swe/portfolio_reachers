@@ -17,13 +17,15 @@ const Login = () => {
 
 
     if (localStorage.getItem('token')) {
-        history.push('/dashboard')
+        history.push('/admin')
     }
 
     const onSubmit = async (data) => {
         try {
             setLoading(true)
             console.log(data)
+            localStorage.setItem('token', data.email)
+            history.push('/admin')
 
             // const response = await axios.post(`${apiURL}login`, data)
             // if (response.status === 200) {

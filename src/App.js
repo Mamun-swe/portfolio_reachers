@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import ScrollToTop from './components/ScrollToTop/Index'
+import PrivateRoute from './components/PrivateRoute/Index'
 
 import ClientIndex from './pages/client/Home/Index'
 import AboutIndex from './pages/client/About/Index'
@@ -16,7 +17,7 @@ import ContactIndex from './pages/client/Contact/Index'
 import LoginIndex from './pages/auth/Login'
 import ResetIndex from './pages/auth/Reset'
 
-// import DoctorAccountMaster from './Pages/Account/Doctor/Master'
+import AdminMaster from './pages/admin/Master'
 
 function App() {
   return (
@@ -32,10 +33,9 @@ function App() {
             <Route exact path="/login" component={LoginIndex} />
             <Route exact path="/reset" component={ResetIndex} />
 
-            {/* 
-              <Route path="/doctor" component={DoctorAccountMaster} />
-              <Route path="*" component={FourOFour} />
-            */}
+            <PrivateRoute path="/admin">
+              <AdminMaster />
+            </PrivateRoute>
 
           </Switch>
         </ ScrollToTop>
