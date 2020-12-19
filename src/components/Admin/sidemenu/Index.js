@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import '../../../styles/admin/sidemenu/style.scss'
+import '../../../styles/admin/components/sidemenu/style.scss'
 import { Icon } from 'react-icons-kit'
 import {
     ic_apps,

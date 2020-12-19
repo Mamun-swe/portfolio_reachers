@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../../styles/admin/style.scss'
+import '../../styles/admin/master.scss'
 import { Route, Switch } from 'react-router-dom'
 import Icon from 'react-icons-kit'
 import { ic_dehaze } from 'react-icons-kit/md'

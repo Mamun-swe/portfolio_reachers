@@ -1,4 +1,4 @@
-@import "../../../App.scss";
+@import "../../../../App.scss";
 
 .side-menu {
     padding: 0;
@@ -6,7 +6,7 @@
     height: 100%;
     overflow: hidden;
 
-    // Menu Header
+    //Menu Header
     .menu-header {
         padding: 15px;
         padding-left: 20px;
@@ -24,8 +24,8 @@
         }
 
         .content {
-            padding-top: 15px;
-            padding-left: 15px;
+            padding-top: 12px;
+            padding-left: 10px;
 
             p {
                 color: #000;
@@ -34,13 +34,13 @@
                 font-weight: 700;
                 line-height: 10px;
                 text-transform: capitalize;
-                font-family: "Roboto", sans-serif;
+                font-family: 'Roboto', sans-serif;
             }
 
             small {
                 color: #555;
                 font-size: 10px;
-                font-family: "Roboto", sans-serif;
+                font-family: 'Roboto', sans-serif;
             }
         }
     }
@@ -63,13 +63,13 @@
                 font-weight: 500;
                 margin-left: 8px;
                 text-transform: capitalize;
-                font-family: "Roboto", sans-serif;
+                font-family: 'Roboto', sans-serif;
             }
         }
 
         .is-Active {
             color: #fff;
-            background: $secondary;
+            background: $primary;
         }
     }
 
