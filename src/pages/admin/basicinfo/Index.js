@@ -1,14 +1,44 @@
 import React, { useState } from 'react'
 import '../../../styles/admin/basic-info/style.scss'
 import { useForm } from 'react-hook-form'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+
+import PreviewModal from '../../../components/Admin/modal/infopreview/Index'
+
+import NullImage from '../../../assets/static/blank.png'
 
 const Index = () => {
     const { register, handleSubmit, errors } = useForm()
     const [isName, setName] = useState()
     const [information, setInformation] = useState()
     const [isLoading, setLoading] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [previewURL, setPreviewURL] = useState(null)
+    const [isUpload, setUpload] = useState(false)
+    const [isPreview, setPreview] = useState(false)
+    const [previewData, setPreviewData] = useState(null)
+
+
+    // Image onChange
+    const imageChangeHandeller = event => {
+        let file = event.target.files[0]
+        if (file) {
+            setSelectedFile(file)
+            setPreviewURL(URL.createObjectURL(event.target.files[0]))
+            setUpload(true)
+        }
+    }
+
+    // Preview Handeller
+    const previewHandeller = data => {
+        setPreviewData({
+            name: isName,
+            image: previewURL,
+            information: information
+        })
+        setPreview(data)
+    }
 
     const onSubmit = async (data) => {
         try {
@@ -42,6 +72,24 @@ const Index = () => {
                             </div>
 
                             <div className="card-body p-lg-4">
+
+                                {/* Image Container */}
+                                <div className="img-container text-center">
+                                    <div className="image rounded-circle border">
+                                        {previewURL ?
+                                            <img src={previewURL} className="img-fluid" alt="..." />
+                                            : <img src={NullImage} className="img-fluid" alt="..." />}
+                                        <div className="overlay">
+                                            <div className="flex-center flex-column">
+                                                {isUpload ? null : <input type="file" className="upload" onChange={imageChangeHandeller} />}
+                                                {isUpload ?
+                                                    <p className="mb-0">Uploading...</p>
+                                                    : <p className="mb-0">Change <br /> Picture</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* Form */}
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     {/* Name */}
@@ -77,20 +125,30 @@ const Index = () => {
                                         />
                                     </div>
 
-
                                     <div className="text-right">
+                                        {/* Preview button */}
+                                        <button
+                                            type="button"
+                                            className="btn shadow-none px-4 mr-2"
+                                            onClick={() => previewHandeller(true)}
+                                            disabled={previewURL && isName && information ? false : true}
+                                        >Preview</button>
+
+                                        {/* Submit buttton */}
                                         <button type="submit" className="btn shadow-none px-4" disabled={isLoading}>
                                             {isLoading ? <span>Loading...</span> : <span>Update</span>}
                                         </button>
                                     </div>
-
-
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            {/* Preview Modal Component */}
+            {isPreview && previewData ? <PreviewModal hide={previewHandeller} data={previewData} /> : null}
         </div>
     );
 };

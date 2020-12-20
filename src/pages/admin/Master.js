@@ -10,6 +10,7 @@ import { ic_dehaze } from 'react-icons-kit/md'
 import SideMenu from '../../components/Admin/sidemenu/Index'
 import DashboardIndex from './dashboard/Index'
 import BasicInfoIndex from './basicinfo/Index'
+import PublicationIndx from './publication/Index'
 
 const Master = () => {
     const [show, setShow] = useState(false)
@@ -72,7 +73,7 @@ const Master = () => {
                     <Switch>
                         <Route exact path="/admin/" component={DashboardIndex} />
                         <Route exact path="/admin/basic-info" component={BasicInfoIndex} />
-                        {/* <Route exact path="/admin/requests" component={RequestIndex} /> */}
+                        <Route exact path="/admin/publications" component={PublicationIndx} />
                     </Switch>
                 </div>
             </div>

@@ -10,6 +10,45 @@
         }
 
         .card-body {
+            .img-container {
+                .image {
+                    width: 130px;
+                    height: 130px;
+                    overflow: hidden;
+                    margin: auto;
+                    position: relative;
+
+                    .overlay {
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 60px;
+                        cursor: pointer;
+                        background: rgba(0, 0, 0, 0.562);
+
+                        p {
+                            color: #fff;
+                            font-size: 13px;
+                            font-family: "Roboto", sans-serif;
+                        }
+
+                        .upload {
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 60px;
+                            cursor: pointer;
+                            opacity: 0;
+
+                            // filter: alpha(opacity = 0);
+                       
+                        }
+                    }
+                }
+            }
+
             form {
                 small {
                     font-family: "Roboto", sans-serif;
