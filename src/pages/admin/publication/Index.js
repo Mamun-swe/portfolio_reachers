@@ -1,48 +1,133 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import './style.scss'
 import Icon from 'react-icons-kit'
-import { ic_add } from 'react-icons-kit/md'
+import {
+    ic_add,
+    ic_mode_edit,
+    ic_remove_red_eye,
+    ic_delete
+} from 'react-icons-kit/md'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import api from '../../../utils/api'
+
 
 const Index = () => {
+    const [isLoading, setLoading] = useState(true)
+    const [publications, setPublications] = useState([])
+
+
+    useEffect(() => {
+        // Fetch Publications
+        const fetchPublications = async () => {
+            try {
+                const response = await axios.get(`${api}users`)
+                if (response.status === 200) {
+                    setPublications(response.data)
+                    setLoading(false)
+                }
+            } catch (error) {
+                if (error) {
+                    setLoading(false)
+                    console.log(error.response)
+                }
+            }
+        }
+
+        fetchPublications()
+    }, [])
+
+    if (isLoading) return (<div><p>Loading...</p></div>)
+
+
     return (
-        <div className="index">
+        <div className="publication-index">
             <div className="container-fluid py-3 py-lg-0">
                 <div className="row">
                     <div className="col-12 pl-lg-0">
                         <div className="card border-0 shadow">
                             <div className="card-header border-bottom bg-white p-lg-4">
-                                <div className="d-flex">
-                                    <div><h5 className="mb-0">Publications</h5></div>
-
-                                    <div className="ml-auto mr-2">
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-sm shadow-none rounded-0"
-                                            placeholder="Search"
-                                        />
+                                <div className="row">
+                                    <div className="col-12 col-sm-4 col-lg-6 px-2 px-sm-3 mb-2 mb-sm-0">
+                                        <h5 className="mb-0">Publications</h5>
                                     </div>
 
-                                    <div className="mr-2">
-                                        <select
-                                            className="form-control form-control-sm shadow-none rounded-0"
-                                        >
-                                            <option>2020</option>
-                                            <option>2019</option>
-                                            <option>2018</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <button
-                                            type="button"
-                                            className="btn btn-sm btn-primary rounded-0 shadow-none"
-                                        >
-                                            <Icon icon={ic_add} size={22} />
-                                        </button>
+                                    <div className="col-12 col-sm-8 col-lg-6 px-2 px-sm-3">
+                                        <div className="d-flex">
+                                            <div className="flex-fill">
+                                                <input
+                                                    type="text"
+                                                    className="form-control shadow-none"
+                                                    placeholder="Search by title"
+                                                />
+                                            </div>
+                                            <div className="flex-fill px-2">
+                                                <select
+                                                    className="form-control shadow-none"
+                                                >
+                                                    <option>2020</option>
+                                                    <option>2019</option>
+                                                    <option>2018</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <Link
+                                                    type="button"
+                                                    to="/admin/publications/create"
+                                                    className="btn btn-primary shadow-none"
+                                                >
+                                                    <Icon icon={ic_add} size={22} />
+                                                </Link>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="card-body"></div>
+                            <div className="card-body p-0">
+                                <table className="table table-sm table-borderless table-responsive-sm">
+                                    <thead>
+                                        <tr className="border-bottom">
+                                            <td className="text-center">SL</td>
+                                            <td>Title</td>
+                                            <td className="text-center">Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {publications.length > 0 ?
+                                            publications && publications.map((publication, i) =>
+                                                <tr className="border-bottom" key={i}>
+                                                    <td className="text-center">{i + 1}</td>
+                                                    <td>{publication.name}</td>
+                                                    <td className="text-center">
+                                                        <Link
+                                                            to="/admin/publications"
+                                                            type="button"
+                                                            className="btn btn-edit shadow-none"
+                                                        >
+                                                            <Icon icon={ic_mode_edit} size={16} />
+                                                        </Link>
+
+                                                        <Link
+                                                            to="/admin/publications"
+                                                            type="button"
+                                                            className="btn btn-edit shadow-none mx-1"
+                                                        >
+                                                            <Icon icon={ic_remove_red_eye} size={16} />
+                                                        </Link>
+
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-edit shadow-none"
+                                                        >
+                                                            <Icon icon={ic_delete} size={16} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ) : null}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
