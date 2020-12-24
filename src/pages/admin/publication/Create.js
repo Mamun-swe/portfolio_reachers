@@ -15,6 +15,9 @@ const Create = () => {
     const [descErr, setDescErr] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
+    const [year, setYear] = useState(null)
+    const [yearErr, setYearErr] = useState(null)
+
 
     const onSubmit = async (data) => {
         if (!description) {
@@ -30,6 +33,24 @@ const Create = () => {
         setLoading(true)
 
         console.log(newData)
+    }
+
+
+    // Submit Year
+    const submitYear = async (event) => {
+        event.preventDefault()
+
+        if (!year) return setYearErr('Year is required.')
+        setYearErr(null)
+
+        try {
+
+            console.log(year)
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+            }
+        }
     }
 
     return (
@@ -153,13 +174,16 @@ const Create = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
+                    <form onSubmit={submitYear}>
                         <div className="form-group mb-4">
-                            <p style={styles.text}>Year</p>
+                            {yearErr ?
+                                <p style={styles.text} className="text-danger">{yearErr}</p>
+                                : <p style={styles.text}>Year</p>}
                             <input
                                 type="number"
                                 style={styles.formControl}
                                 className="form-control shadow-none"
+                                onChange={(event) => setYear(event.target.value)}
                             />
                         </div>
 

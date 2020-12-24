@@ -15,7 +15,7 @@ import api from '../../../utils/api'
 const Index = () => {
     const [isLoading, setLoading] = useState(true)
     const [publications, setPublications] = useState([])
-
+    const [filtered, setFiltered] = useState(publications)
 
     useEffect(() => {
         // Fetch Publications
@@ -24,6 +24,7 @@ const Index = () => {
                 const response = await axios.get(`${api}users`)
                 if (response.status === 200) {
                     setPublications(response.data)
+                    setFiltered(response.data)
                     setLoading(false)
                 }
             } catch (error) {
@@ -36,6 +37,16 @@ const Index = () => {
 
         fetchPublications()
     }, [])
+
+    // Filter Publication
+    const onChangeFilter = event => {
+        const result = publications.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()))
+        if (result && result.length > 0) {
+            setFiltered(result)
+        } else {
+            setFiltered(publications)
+        }
+    }
 
     if (isLoading) return (<div><p>Loading...</p></div>)
 
@@ -59,6 +70,7 @@ const Index = () => {
                                                     type="text"
                                                     className="form-control shadow-none"
                                                     placeholder="Search by title"
+                                                    onChange={onChangeFilter}
                                                 />
                                             </div>
                                             <div className="flex-fill px-2">
@@ -94,8 +106,8 @@ const Index = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {publications.length > 0 ?
-                                            publications && publications.map((publication, i) =>
+                                        {filtered.length > 0 ?
+                                            filtered && filtered.map((publication, i) =>
                                                 <tr className="border-bottom" key={i}>
                                                     <td className="text-center">{i + 1}</td>
                                                     <td>{publication.name}</td>
