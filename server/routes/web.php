@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', function () {
     return response()->json('You are looking wrong way');
 });
+=======
+Route::get('/', 'AppController@Index');
+>>>>>>> 7788bc14526b0925307cc46283fbcf34716a1112
