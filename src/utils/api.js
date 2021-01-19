@@ -1,3 +1,3 @@
 
-const api = 'https://jsonplaceholder.typicode.com/'
-module.exports = api
+const api = 'http://127.0.0.1:8000/api/'
+export default api

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import './style.scss'
 import { useParams } from 'react-router-dom'
-import '../../../styles/client/publication/style.scss'
 import Icon from 'react-icons-kit'
 import { ic_chevron_right } from 'react-icons-kit/md'
 import axios from 'axios'

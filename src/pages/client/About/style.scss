@@ -1,0 +1,39 @@
+@import "../../../App.scss";
+
+.about {
+    .content-body {
+        padding-top: 80px;
+        padding-bottom: 80px;
+
+        .img-box {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        h2,
+        h3 {
+            color: $primary;
+            font-weight: 900;
+            font-family: serif;
+            line-height: 1.9rem;
+        }
+
+        p {
+            letter-spacing: 1px;
+            font-size: 17px;
+            font-weight: 200;
+            line-height: 1.8rem;
+            text-align: justify;
+            text-justify: inter-word;
+            font-family: "Kanit", sans-serif;
+            color: rgba(102, 101, 101, 0.849);
+        }
+
+        @media (min-width: 992px) {
+            padding-top: 130px;
+            padding-bottom: 130px;
+        }
+    }
+}

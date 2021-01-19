@@ -1,0 +1,54 @@
+@import "../../../App.scss";
+
+.publication {
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    h2 {
+        color: $primary;
+        font-weight: 900;
+        font-family: serif;
+        line-height: 1.9rem;
+    }
+
+    .item {
+        border-bottom: 1px solid #dfdfdf;
+
+        .item-header {
+            cursor: pointer;
+            padding: 15px 0px;
+
+            p {
+                letter-spacing: 1px;
+                font-size: 16px;
+                font-weight: 200;
+                line-height: 1.5rem;
+                font-family: "Kanit", sans-serif;
+                color: #dc3545 !important;
+                transition: 0.3s all;
+            }
+        }
+
+        .item-header:hover p {
+            color: #fa3e51 !important;
+        }
+
+        .item-body {
+            padding: 0px 20px 10px 30px;
+
+            p {
+                letter-spacing: 1px;
+                font-size: 14px;
+                font-weight: 200;
+                line-height: 1.5rem;
+                margin-bottom: 0;
+                font-family: "Kanit", sans-serif;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+}

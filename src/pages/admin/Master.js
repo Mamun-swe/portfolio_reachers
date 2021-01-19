@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../../styles/admin/master.scss'
+import './style.scss'
 import { Route, Switch } from 'react-router-dom'
 import Icon from 'react-icons-kit'
 import { ic_dehaze } from 'react-icons-kit/md'
@@ -12,6 +12,8 @@ import DashboardIndex from './dashboard/Index'
 import BasicInfoIndex from './basicinfo/Index'
 import PublicationIndx from './publication/Index'
 import PublicationCreate from './publication/Create'
+import PublicationShow from './publication/Show'
+import PublicationEdit from './publication/Edit'
 
 const Master = () => {
     const [show, setShow] = useState(false)
@@ -76,6 +78,8 @@ const Master = () => {
                         <Route exact path="/admin/basic-info" component={BasicInfoIndex} />
                         <Route exact path="/admin/publications" component={PublicationIndx} />
                         <Route exact path="/admin/publications/create" component={PublicationCreate} />
+                        <Route exact path="/admin/publications/:id/show" component={PublicationShow} />
+                        <Route exact path="/admin/publications/:id/edit" component={PublicationEdit} />
                     </Switch>
                 </div>
             </div>

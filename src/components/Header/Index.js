@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/client/component/header/style.scss'
+import './style.scss'
 
 const Index = () => {
     return (

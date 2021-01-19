@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/client/component/footer/style.scss'
+import './style.scss'
 import Icon from 'react-icons-kit'
 import { ic_language } from 'react-icons-kit/md'
 

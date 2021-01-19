@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../../styles/client/component/navbar/style.scss'
+import './style.scss'
 import { Icon } from 'react-icons-kit'
 import { Link, NavLink } from 'react-router-dom'
 import { ic_menu, ic_keyboard_arrow_right } from 'react-icons-kit/md'

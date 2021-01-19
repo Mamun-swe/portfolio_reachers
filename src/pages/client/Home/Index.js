@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../styles/client/home/style.scss'
+import './style.scss'
 import { ic_fiber_manual_record } from 'react-icons-kit/md'
 import Icon from 'react-icons-kit'
 

@@ -21,7 +21,7 @@ const Index = () => {
         // Fetch Publications
         const fetchPublications = async () => {
             try {
-                const response = await axios.get(`${api}users`)
+                const response = await axios.get(`${api}admin/publication`)
                 if (response.status === 200) {
                     setPublications(response.data)
                     setFiltered(response.data)
@@ -40,7 +40,7 @@ const Index = () => {
 
     // Filter Publication
     const onChangeFilter = event => {
-        const result = publications.filter(x => x.name.toLowerCase().includes(event.target.value.toLowerCase()))
+        const result = publications.filter(x => x.title.toLowerCase().includes(event.target.value.toLowerCase()))
         if (result && result.length > 0) {
             setFiltered(result)
         } else {
@@ -101,6 +101,7 @@ const Index = () => {
                                     <thead>
                                         <tr className="border-bottom">
                                             <td className="text-center">SL</td>
+                                            <td>Year</td>
                                             <td>Title</td>
                                             <td className="text-center">Action</td>
                                         </tr>
@@ -110,10 +111,11 @@ const Index = () => {
                                             filtered && filtered.map((publication, i) =>
                                                 <tr className="border-bottom" key={i}>
                                                     <td className="text-center">{i + 1}</td>
-                                                    <td>{publication.name}</td>
+                                                    <td>{publication.year}</td>
+                                                    <td>{publication.title}</td>
                                                     <td className="text-center">
                                                         <Link
-                                                            to="/admin/publications"
+                                                            to={`/admin/publications/${publication.id}/edit`}
                                                             type="button"
                                                             className="btn btn-edit shadow-none"
                                                         >
@@ -121,7 +123,7 @@ const Index = () => {
                                                         </Link>
 
                                                         <Link
-                                                            to="/admin/publications"
+                                                            to={`/admin/publications/${publication.id}/show`}
                                                             type="button"
                                                             className="btn btn-edit shadow-none mx-1"
                                                         >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './style.scss'
 import { ic_add, ic_keyboard_arrow_left } from 'react-icons-kit/md'
@@ -7,18 +7,27 @@ import { useForm } from 'react-hook-form'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import Modal from 'react-bootstrap/Modal'
+import Axios from 'axios'
+import api from '../../../utils/api'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
+
+toast.configure({ autoClose: 2000 })
 const Create = () => {
     const { register, handleSubmit, errors } = useForm()
     const [show, setShow] = useState(false)
     const [description, setDescription] = useState()
     const [descErr, setDescErr] = useState(null)
     const [isLoading, setLoading] = useState(false)
+    const [years, setYears] = useState([])
 
     const [year, setYear] = useState(null)
     const [yearErr, setYearErr] = useState(null)
+    const [yearLoading, setYearLoading] = useState(false)
 
 
+    // Submit Publication
     const onSubmit = async (data) => {
         if (!description) {
             return setDescErr('Description is required')
@@ -30,9 +39,19 @@ const Create = () => {
             description: description
         }
 
-        setLoading(true)
-
-        console.log(newData)
+        try {
+            setLoading(true)
+            const response = await Axios.post(`${api}admin/publication`, newData)
+            if (response.status === 201) {
+                setLoading(false)
+                toast.success(response.data.message)
+            }
+        } catch (error) {
+            if (error) {
+                setLoading(false)
+                toast.warn(error.response.data)
+            }
+        }
     }
 
 
@@ -44,14 +63,42 @@ const Create = () => {
         setYearErr(null)
 
         try {
-
-            console.log(year)
+            const data = { year: year }
+            setYearLoading(true)
+            const response = await Axios.post(`${api}admin/year`, data)
+            if (response.status === 201) {
+                fetchYear()
+                setYearLoading(false)
+                setShow(false)
+            }
         } catch (error) {
             if (error) {
+                setYearLoading(false)
                 console.log(error.response)
             }
         }
     }
+
+    // Fetch Year
+    const fetchYear = async () => {
+        try {
+            const response = await Axios.get(`${api}admin/year`)
+            if (response.status === 200) {
+                setYears(response.data)
+                toast.success(response.data.message)
+            }
+        } catch (error) {
+            if (error) {
+                setLoading(false)
+                toast.warn(error.response.data)
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        fetchYear()
+    }, [])
 
     return (
         <div className="publication-create">
@@ -61,7 +108,7 @@ const Create = () => {
                         <div className="card border-0 shadow">
                             <div className="card-header border-bottom bg-white p-lg-4">
                                 <div className="d-flex">
-                                    <div><h5 className="mb-0">Publications</h5></div>
+                                    <div><h5 className="mb-0">Create publication</h5></div>
                                     <div className="ml-auto">
                                         <Link
                                             type="button"
@@ -93,9 +140,9 @@ const Create = () => {
                                                         required: "Year is required"
                                                     })}
                                                 >
-                                                    <option>2020</option>
-                                                    <option>2020</option>
-                                                    <option>2020</option>
+                                                    {years && years.length > 0 ? years.map((item, i) =>
+                                                        <option value={item.year} key={i}>{item.year}</option>
+                                                    ) : null}
                                                 </select>
                                             </div>
                                         </div>
@@ -192,8 +239,9 @@ const Create = () => {
                                 type="submit"
                                 style={styles.submitBtn}
                                 className="btn shadow-none submit-btn"
+                                disabled={yearLoading}
                             >
-                                <span>Create</span>
+                                {yearLoading ? <span>Creating...</span> : <span>Create</span>}
                             </button>
                         </div>
                     </form>

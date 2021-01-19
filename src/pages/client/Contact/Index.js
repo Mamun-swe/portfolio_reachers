@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../../styles/client/contact/style.scss'
+import './style.scss'
 import { useForm } from "react-hook-form"
 // import axios from 'axios'
 // import api from '../../../utils/api'

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../styles/client/about/style.scss'
+import './style.scss'
 
 import Navbar from '../../../components/ClientNav/Index'
 import Header from '../../../components/Header/Index'
