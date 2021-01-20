@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+compiled.php
+config.php
+down
+events.scanned.php
+maintenance.php
+routes.php
+routes.scanned.php
+schedule-*
+services.json
+=======
+config.php
+routes.php
+schedule-*
+compiled.php
+services.json
+events.scanned.php
+routes.scanned.php
+down
+>>>>>>> 7788bc14526b0925307cc46283fbcf34716a1112

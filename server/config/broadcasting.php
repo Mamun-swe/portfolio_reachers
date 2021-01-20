@@ -41,14 +41,11 @@ return [
             ],
         ],
 
-<<<<<<< HEAD
         'ably' => [
             'driver' => 'ably',
             'key' => env('ABLY_KEY'),
         ],
 
-=======
->>>>>>> 7788bc14526b0925307cc46283fbcf34716a1112
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
