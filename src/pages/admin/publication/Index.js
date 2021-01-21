@@ -11,9 +11,9 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import api from '../../../utils/api'
 
-
 const Index = () => {
     const [isLoading, setLoading] = useState(true)
+    const [years, setYears] = useState([])
     const [publications, setPublications] = useState([])
     const [filtered, setFiltered] = useState(publications)
 
@@ -35,7 +35,23 @@ const Index = () => {
             }
         }
 
+        // Fetch Year
+        const fetchYear = async () => {
+            try {
+                const response = await axios.get(`${api}admin/year`)
+                if (response.status === 200) {
+                    setYears(response.data)
+                }
+            } catch (error) {
+                if (error) {
+                    setLoading(false)
+                    console.log(error.response)
+                }
+            }
+        }
+
         fetchPublications()
+        fetchYear()
     }, [])
 
     // Filter Publication
@@ -48,8 +64,17 @@ const Index = () => {
         }
     }
 
-    if (isLoading) return (<div><p>Loading...</p></div>)
+    // Year Filter
+    const filterYear = event => {
+        const result = publications.filter(x => x.year === event.target.value)
+        if (result && result.length > 0) {
+            setFiltered(result)
+        } else {
+            setFiltered(publications)
+        }
+    }
 
+    if (isLoading) return (<div><p>Loading...</p></div>)
 
     return (
         <div className="publication-index">
@@ -76,10 +101,12 @@ const Index = () => {
                                             <div className="flex-fill px-2">
                                                 <select
                                                     className="form-control shadow-none"
+                                                    onChange={filterYear}
                                                 >
-                                                    <option>2020</option>
-                                                    <option>2019</option>
-                                                    <option>2018</option>
+                                                    <option>All</option>
+                                                    {years && years.length > 0 ? years.map((item, i) =>
+                                                        <option value={item.year} key={i}>{item.year}</option>
+                                                    ) : null}
                                                 </select>
                                             </div>
                                             <div>
@@ -97,7 +124,7 @@ const Index = () => {
                             </div>
 
                             <div className="card-body p-0">
-                                <table className="table table-sm table-borderless table-responsive-sm">
+                                <table className="table table-sm table-borderless table-responsive-md">
                                     <thead>
                                         <tr className="border-bottom">
                                             <td className="text-center">SL</td>
@@ -112,8 +139,8 @@ const Index = () => {
                                                 <tr className="border-bottom" key={i}>
                                                     <td className="text-center">{i + 1}</td>
                                                     <td>{publication.year}</td>
-                                                    <td>{publication.title}</td>
-                                                    <td className="text-center">
+                                                    <td>{publication.title.slice(0, 100)}</td>
+                                                    <td className="text-center" style={{ width: 120 }}>
                                                         <Link
                                                             to={`/admin/publications/${publication.id}/edit`}
                                                             type="button"

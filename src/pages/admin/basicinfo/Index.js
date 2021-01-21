@@ -1,24 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.scss'
+import axios from 'axios'
+import api from '../../../utils/api'
 import { useForm } from 'react-hook-form'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import PreviewModal from '../../../components/Admin/modal/infopreview/Index'
-
 import NullImage from '../../../assets/static/blank.png'
 
+toast.configure({ autoClose: 2000 })
 const Index = () => {
     const { register, handleSubmit, errors } = useForm()
+
     const [isName, setName] = useState()
+    const [isImage, setImage] = useState()
     const [information, setInformation] = useState()
+
     const [isLoading, setLoading] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null)
     const [previewURL, setPreviewURL] = useState(null)
-    const [isUpload, setUpload] = useState(false)
     const [isPreview, setPreview] = useState(false)
     const [previewData, setPreviewData] = useState(null)
 
+    useEffect(() => {
+        fetchInfo()
+    }, [])
+
+    // Fetch Info
+    const fetchInfo = async () => {
+        try {
+            const response = await axios.get(`${api}admin/info`)
+            if (response.status === 200) {
+                setName(response.data.name)
+                setImage(response.data.image)
+                setInformation(response.data.information)
+            }
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+            }
+        }
+    }
 
     // Image onChange
     const imageChangeHandeller = event => {
@@ -26,7 +51,6 @@ const Index = () => {
         if (file) {
             setSelectedFile(file)
             setPreviewURL(URL.createObjectURL(event.target.files[0]))
-            setUpload(true)
         }
     }
 
@@ -40,22 +64,30 @@ const Index = () => {
         setPreview(data)
     }
 
+    // Submit Basic Information
     const onSubmit = async (data) => {
+
+        let formData = new FormData()
+        formData.append('name', data.name)
+        formData.append('information', information)
+        formData.append('image', selectedFile)
+
         try {
-            const newData = {
-                name: data.name,
-                information: information
+            setLoading(true)
+            const response = await axios.post(`${api}admin/info`, formData)
+            if (response.status === 200) {
+                fetchInfo()
+                setLoading(false)
+                toast.success(response.data.message)
             }
-
-
-            // setLoading(true)
-            console.log(newData)
         } catch (error) {
             if (error) {
                 setLoading(false)
-                console.log(error)
+                toast.warn(error.response)
             }
         }
+
+
     }
 
     return (
@@ -78,13 +110,13 @@ const Index = () => {
                                     <div className="image rounded-circle border">
                                         {previewURL ?
                                             <img src={previewURL} className="img-fluid" alt="..." />
-                                            : <img src={NullImage} className="img-fluid" alt="..." />}
+                                            : isImage ?
+                                                <img src={isImage} className="img-fluid" alt="..." />
+                                                : <img src={NullImage} className="img-fluid" alt="..." />}
                                         <div className="overlay">
                                             <div className="flex-center flex-column">
-                                                {isUpload ? null : <input type="file" className="upload" onChange={imageChangeHandeller} />}
-                                                {isUpload ?
-                                                    <p className="mb-0">Uploading...</p>
-                                                    : <p className="mb-0">Change <br /> Picture</p>}
+                                                <input type="file" className="upload" onChange={imageChangeHandeller} />
+                                                <p className="mb-0">Change <br /> Picture</p>
                                             </div>
                                         </div>
                                     </div>
@@ -102,6 +134,7 @@ const Index = () => {
                                         <input
                                             type="text"
                                             name="name"
+                                            defaultValue={isName ? isName : null}
                                             className="form-control shadow-none"
                                             placeholder="Your name"
                                             onChange={(event) => setName(event.target.value)}

@@ -29,7 +29,6 @@ const Edit = () => {
             const response = await Axios.get(`${api}admin/year`)
             if (response.status === 200) {
                 setYears(response.data)
-                toast.success(response.data.message)
             }
         } catch (error) {
             if (error) {
@@ -38,7 +37,6 @@ const Edit = () => {
             }
         }
     }
-
 
     // Fetch Publication
     const fetchPublication = async () => {
@@ -88,7 +86,6 @@ const Edit = () => {
         fetchYear()
         fetchPublication()
     }, [id])
-
 
     // if not found
     if (pubErr) {
@@ -146,9 +143,13 @@ const Edit = () => {
                                             ref={register({
                                                 required: "Year is required"
                                             })}
+                                            defaultValue={publication.year}
                                         >
                                             {years && years.length > 0 ? years.map((item, i) =>
-                                                <option value={item.year} key={i}>{item.year}</option>
+                                                <option
+                                                    key={i}
+                                                    value={item.year}
+                                                >{item.year}</option>
                                             ) : null}
                                         </select>
                                     </div>
