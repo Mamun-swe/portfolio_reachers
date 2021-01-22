@@ -20,6 +20,7 @@ const Index = () => {
     const [information, setInformation] = useState()
 
     const [isLoading, setLoading] = useState(false)
+
     const [selectedFile, setSelectedFile] = useState(null)
     const [previewURL, setPreviewURL] = useState(null)
     const [isPreview, setPreview] = useState(false)
@@ -32,7 +33,7 @@ const Index = () => {
     // Fetch Info
     const fetchInfo = async () => {
         try {
-            const response = await axios.get(`${api}admin/info`)
+            const response = await axios.get(`${api}admin/info/index`)
             if (response.status === 200) {
                 setName(response.data.name)
                 setImage(response.data.image)
@@ -46,12 +47,25 @@ const Index = () => {
     }
 
     // Image onChange
-    const imageChangeHandeller = event => {
-        let file = event.target.files[0]
-        if (file) {
+    const imageChangeHandeller = async (event) => {
+        try {
+            let file = event.target.files[0]
             setSelectedFile(file)
             setPreviewURL(URL.createObjectURL(event.target.files[0]))
+
+            let formData = new FormData()
+            formData.append('image', file)
+
+            const response = await axios.post(`${api}admin/update/image`, formData)
+            if (response.status === 200) {
+                fetchInfo()
+            }
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+            }
         }
+
     }
 
     // Preview Handeller

@@ -15,11 +15,6 @@ class BasicInfoController extends Controller
         return $url = URL::to('');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data = BasicInfo::first();
@@ -35,12 +30,40 @@ class BasicInfoController extends Controller
         return response()->json($info, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function updateImage(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'required',
+        ]);
+
+        $data = new BasicInfo();
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        $fileName = time() . '.' . $extension;
+
+        $info = BasicInfo::all();
+        if (!$info) {
+
+            $file->move('images', $fileName);
+            $data->image = $fileName;
+            $data->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully image uploaded.',
+            ], 200);
+        }
+
+        $file->move('images', $fileName);
+        $data->image = $fileName;
+        $data->update();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully image updated.',
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -69,28 +92,4 @@ class BasicInfoController extends Controller
         ], 200);
     }
 
-    public function updateImage(Request $request)
-    {
-        $data = new BasicInfo();
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $fileName = time() . '.' . $extension;
-        $file->move('images', $fileName);
-        $data->image = $fileName;
-
-        $info = BasicInfo::first();
-        if (!$info) {
-            $data->save();
-            return response()->json([
-                'status' => true,
-                'message' => 'Successfully image uploaded.',
-            ], 200);
-        }
-
-        $data->update();
-        return response()->json([
-            'status' => true,
-            'message' => 'Successfully image updated.',
-        ], 200);
-    }
 }
