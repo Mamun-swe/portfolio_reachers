@@ -20,6 +20,7 @@ const Index = () => {
     const [information, setInformation] = useState()
 
     const [isLoading, setLoading] = useState(false)
+    const [isUpload, setUpload] = useState(false)
 
     const [selectedFile, setSelectedFile] = useState(null)
     const [previewURL, setPreviewURL] = useState(null)
@@ -49,6 +50,7 @@ const Index = () => {
     // Image onChange
     const imageChangeHandeller = async (event) => {
         try {
+            setUpload(true)
             let file = event.target.files[0]
             setSelectedFile(file)
             setPreviewURL(URL.createObjectURL(event.target.files[0]))
@@ -59,6 +61,8 @@ const Index = () => {
             const response = await axios.post(`${api}admin/update/image`, formData)
             if (response.status === 200) {
                 fetchInfo()
+                setUpload(false)
+                toast.success(response.data.message)
             }
         } catch (error) {
             if (error) {
@@ -80,15 +84,14 @@ const Index = () => {
 
     // Submit Basic Information
     const onSubmit = async (data) => {
-
-        let formData = new FormData()
-        formData.append('name', data.name)
-        formData.append('information', information)
-        formData.append('image', selectedFile)
+        const newData = {
+            name: data.name,
+            information: information
+        }
 
         try {
             setLoading(true)
-            const response = await axios.post(`${api}admin/info`, formData)
+            const response = await axios.post(`${api}admin/update/info`, newData)
             if (response.status === 200) {
                 fetchInfo()
                 setLoading(false)
@@ -130,7 +133,10 @@ const Index = () => {
                                         <div className="overlay">
                                             <div className="flex-center flex-column">
                                                 <input type="file" className="upload" onChange={imageChangeHandeller} />
-                                                <p className="mb-0">Change <br /> Picture</p>
+                                                {isUpload ?
+                                                    <p className="mb-0">Uploading...</p>
+                                                    : <p className="mb-0">Change <br /> Picture</p>
+                                                }
                                             </div>
                                         </div>
                                     </div>

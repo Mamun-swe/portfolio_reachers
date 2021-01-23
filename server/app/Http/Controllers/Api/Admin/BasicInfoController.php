@@ -25,71 +25,110 @@ class BasicInfoController extends Controller
         $info = (object) [
             'name' => $data->name,
             'information' => $data->information,
-            'image' => $this->rootUrl() . '/images/' . $data->image,
+            'image' => $data->image ? $this->rootUrl() . '/images/' . $data->image : null,
         ];
         return response()->json($info, 200);
     }
 
+    // Update image
     public function updateImage(Request $request)
     {
         $this->validate($request, [
             'image' => 'required',
         ]);
 
-        $data = new BasicInfo();
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $fileName = time() . '.' . $extension;
+        // Find document from server
+        $info = BasicInfo::where('id', 1)->first();
 
-        $info = BasicInfo::all();
+        // Check if available or not
         if (!$info) {
+            // if image got into server
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
 
-            $file->move('images', $fileName);
-            $data->image = $fileName;
-            $data->save();
+                // Move image to destination
+                $file->move('images', $filename);
+                $form_data = array(
+                    'image' => $filename,
+                );
 
+                // Update into server
+                BasicInfo::create($form_data);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Successfully image uploaded',
+                ], 200);
+            }
+        }
+
+        // if image got into server
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+
+            if ($info->image) {
+                // Remove old file from upload destination
+                $old_image = public_path() . '/images/' . $info->image;
+                unlink($old_image);
+            }
+
+            // Move image to destination
+            $file->move('images', $filename);
+            $form_data = array(
+                'image' => $filename,
+            );
+
+            // Update into server
+            $info->update($form_data);
             return response()->json([
                 'status' => true,
-                'message' => 'Successfully image uploaded.',
+                'message' => 'Successfully image updated',
             ], 200);
         }
 
-        $file->move('images', $fileName);
-        $data->image = $fileName;
-        $data->update();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Successfully image updated.',
-        ], 200);
     }
 
-    public function store(Request $request)
+    public function updateInfo(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
             'information' => 'required',
         ]);
 
-        $data = new BasicInfo();
-        $data->name = $request->name;
-        $data->information = $request->information;
+        // Find document from server
+        $info = BasicInfo::where('id', 1)->first();
 
-        $info = BasicInfo::first();
+        // if info not found
         if (!$info) {
-            $data->save();
+            $form_data = array(
+                'name' => $request->name,
+                'information' => $request->information,
+            );
 
+            // Update into server
+            BasicInfo::create($form_data);
             return response()->json([
                 'status' => true,
-                'message' => 'Successfully basic info added.',
+                'message' => 'Successfully basic info added',
             ], 200);
         }
 
-        $data->update();
+        // if info available
+        $form_data = array(
+            'name' => $request->name,
+            'information' => $request->information,
+        );
+
+        // Update into server
+        $info->update($form_data);
         return response()->json([
             'status' => true,
-            'message' => 'Successfully basic info updated.',
+            'message' => 'Successfully info updated',
         ], 200);
+
     }
 
 }

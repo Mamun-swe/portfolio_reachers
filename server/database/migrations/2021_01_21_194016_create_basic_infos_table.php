@@ -15,9 +15,9 @@ class CreateBasicInfosTable extends Migration
     {
         Schema::create('basic_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image');
-            $table->longText('information');
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
+            $table->longText('information')->nullable();
             $table->timestamps();
         });
     }
