@@ -9,6 +9,7 @@ import { ic_dehaze } from 'react-icons-kit/md'
 
 import SideMenu from '../../components/Admin/sidemenu/Index'
 import DashboardIndex from './dashboard/Index'
+import HomeContentIndex from './homeContent/Index'
 import BasicInfoIndex from './basicinfo/Index'
 import PublicationIndx from './publication/Index'
 import PublicationCreate from './publication/Create'
@@ -75,6 +76,7 @@ const Master = () => {
                 <div className="main flex-fill">
                     <Switch>
                         <Route exact path="/admin/" component={DashboardIndex} />
+                        <Route exact path="/admin/home-content" component={HomeContentIndex} />
                         <Route exact path="/admin/basic-info" component={BasicInfoIndex} />
                         <Route exact path="/admin/publications" component={PublicationIndx} />
                         <Route exact path="/admin/publications/create" component={PublicationCreate} />

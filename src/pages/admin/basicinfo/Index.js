@@ -14,7 +14,7 @@ import NullImage from '../../../assets/static/blank.png'
 toast.configure({ autoClose: 2000 })
 const Index = () => {
     const { register, handleSubmit, errors } = useForm()
-
+    const [contentLoading, setContentLoading] = useState(true)
     const [isName, setName] = useState()
     const [isImage, setImage] = useState()
     const [information, setInformation] = useState()
@@ -22,7 +22,6 @@ const Index = () => {
     const [isLoading, setLoading] = useState(false)
     const [isUpload, setUpload] = useState(false)
 
-    const [selectedFile, setSelectedFile] = useState(null)
     const [previewURL, setPreviewURL] = useState(null)
     const [isPreview, setPreview] = useState(false)
     const [previewData, setPreviewData] = useState(null)
@@ -39,6 +38,7 @@ const Index = () => {
                 setName(response.data.name)
                 setImage(response.data.image)
                 setInformation(response.data.information)
+                setContentLoading(false)
             }
         } catch (error) {
             if (error) {
@@ -52,9 +52,7 @@ const Index = () => {
         try {
             setUpload(true)
             let file = event.target.files[0]
-            setSelectedFile(file)
             setPreviewURL(URL.createObjectURL(event.target.files[0]))
-
             let formData = new FormData()
             formData.append('image', file)
 
@@ -105,6 +103,16 @@ const Index = () => {
         }
 
 
+    }
+
+
+    // IF content loading
+    if (contentLoading) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
     }
 
     return (

@@ -4,6 +4,7 @@ import './style.scss'
 import { Icon } from 'react-icons-kit'
 import {
     ic_apps,
+    ic_language,
     ic_info_outline,
     ic_lock,
     ic_library_books
@@ -69,6 +70,14 @@ const Index = ({ user }) => {
                     to="/admin/">
                     <Icon icon={ic_apps} size={20} />
                     <span>dashboard</span>
+                </NavLink>
+                <NavLink
+                    exact
+                    activeClassName="is-Active"
+                    className="btn btn-block shadow-none"
+                    to="/admin/home-content">
+                    <Icon icon={ic_language} size={20} />
+                    <span>home content</span>
                 </NavLink>
                 <NavLink
                     exact
